@@ -1,18 +1,35 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation"; // for route changes
+import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Icons from "@/app/constants/Icons";
 import Link from "next/link";
 import Image from "next/image";
 
+type MobileSubMenuState = {
+  company: boolean;
+  products: boolean;
+  banking: boolean;
+  payments: boolean;
+  insurance: boolean;
+  identity: boolean;
+  others: boolean;
+  solutions: boolean;
+  developers: boolean;
+  docs: boolean;
+  apis: boolean;
+};
+
 const Header = () => {
   const pathname = usePathname(); // current route
 
-  const [openDropdown, setOpenDropdown] = useState(null);
-  const [openSubMenu, setOpenSubMenu] = useState(null);
+  // typed state
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileSubMenu, setMobileSubMenu] = useState({
+  const [mobileSubMenu, setMobileSubMenu] = useState<MobileSubMenuState>({
     company: false,
     products: false,
     banking: false,
@@ -26,33 +43,35 @@ const Header = () => {
     apis: false,
   });
 
-  const productsRef = useRef(null);
-  const solutionsRef = useRef(null);
-  const companyRef = useRef(null);
-  const developersRef = useRef(null);
+  // typed refs for DOM elements
+  const productsRef = useRef<HTMLDivElement | null>(null);
+  const solutionsRef = useRef<HTMLDivElement | null>(null);
+  const companyRef = useRef<HTMLDivElement | null>(null);
+  const developersRef = useRef<HTMLDivElement | null>(null);
 
-  const toggleDropdown = (menu) => {
+  // Toggle desktop dropdown (typed)
+  const toggleDropdown = (menu: string) => {
     setOpenDropdown(openDropdown === menu ? null : menu);
     setOpenSubMenu(null);
   };
 
-  const toggleMobileSubMenu = (menu) => {
+  // Toggle mobile submenu (use keyof MobileSubMenuState for safety)
+  const toggleMobileSubMenu = (menu: keyof MobileSubMenuState) => {
     setMobileSubMenu((prev) => ({ ...prev, [menu]: !prev[menu] }));
   };
 
   // Close dropdowns/submenus when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        productsRef.current &&
-        !productsRef.current.contains(event.target) &&
-        companyRef.current &&
-        !companyRef.current.contains(event.target) &&
-        solutionsRef.current &&
-        !solutionsRef.current.contains(event.target) &&
-        developersRef.current &&
-        !developersRef.current.contains(event.target)
-      ) {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
+      const clickedInsideAny =
+        (productsRef.current && productsRef.current.contains(target)) ||
+        (companyRef.current && companyRef.current.contains(target)) ||
+        (solutionsRef.current && solutionsRef.current.contains(target)) ||
+        (developersRef.current && developersRef.current.contains(target));
+
+      if (!clickedInsideAny) {
         setOpenDropdown(null);
         setOpenSubMenu(null);
       }
@@ -82,11 +101,13 @@ const Header = () => {
   }, [pathname]); // runs every time the route changes
 
   return (
-    <div className="w-full  lg:w-[80%] mx-auto 2xl:px-4 relative">
+    <div className="w-full lg:w-[80%] mx-auto 2xl:px-4 relative">
       <header className="w-full flex items-center justify-between px-4 lg:px-6 py-4 lg:fixed lg:w-[80%] mx-auto top-0 z-90 bg-[#111111] lg:rounded-[14px]">
         {/* Logo */}
         <Link href="/" className="text-white font-extrabold text-[28px] sm:text-[34px] tracking-[1.5px]">
-          <h2 className="!font-bold">  <span className="text-[#fc9d08]">Dot</span>Mik</h2>
+          <h2 className="!font-bold">
+            <span className="text-[#fc9d08]">Dot</span>Mik
+          </h2>
         </Link>
 
         <nav className="hidden lg:flex gap-8 relative">
@@ -94,17 +115,19 @@ const Header = () => {
             Welcome
           </Link>
 
-          {/* {compnay menu} */}
+          {/* {company menu} */}
           <div className="relative" ref={companyRef}>
             <button
               onClick={() => toggleDropdown("company")}
-              className="flex items-center gap-1 text-white hover:text-gray-300 transition">
+              className="flex items-center gap-1 text-white hover:text-gray-300 transition"
+            >
               Association
               <ChevronDown size={18} className={`transition-transform ${openDropdown === "company" ? "rotate-180" : ""}`} />
             </button>
 
             {openDropdown === "company" && (
-              <div className="absolute left-0 mt-4 w-60 bg-white flex flex-col justify-between shadow-lg
+              <div
+                className="absolute left-0 mt-4 w-60 bg-white flex flex-col justify-between shadow-lg
                rounded-lg z-50 h-[450px] transform -translate-x-[50%] -translate-y-[-1%]
          after:content-[''] after:absolute after:top-0 after:left-[65%] after:-ml-[0px] after:-mt-[10px]
          after:w-0 after:h-0 after:z-[1]
@@ -113,25 +136,26 @@ const Header = () => {
          after:border-r-[10px] after:border-r-transparent"
               >
                 <ul className="flex flex-col justify-between gap-5 w-full p-6">
-                  <li className="  rounded-lg flex-1 whitespace-nowrap">
+                  <li className="rounded-lg flex-1 whitespace-nowrap">
                     <Link href="aboutus" className="text-gray-700 hover:text-black">
                       Footprint
                     </Link>
                   </li>
-                  <li className="  rounded-lg flex-1 whitespace-nowrap">
+                  <li className="rounded-lg flex-1 whitespace-nowrap">
                     <Link href="contactus" className="text-gray-700 hover:text-black">
                       Reach DotMik
                     </Link>
                   </li>
-                  <li className="  rounded-lg flex-1  whitespace-nowrap">
+                  <li className="rounded-lg flex-1 whitespace-nowrap">
                     <Link href="careers" className="text-gray-700 hover:text-black">
                       Career Track
                     </Link>
                   </li>
                 </ul>
                 <div className="flex flex-col w-full ">
-                  <a className="flex-1 bg-[#fc9d08]  p-2 text-extra-small" href="">Contact Sales</a>
-                  <a className="flex-1 bg-[#000] p-2  text-white  rounded-bl-lg rounded-br-lg text-extra-small" href="">Contact Sales</a></div>
+                  <a className="flex-1 bg-[#fc9d08] p-2 text-extra-small" href="">Contact Sales</a>
+                  <a className="flex-1 bg-[#000] p-2 text-white rounded-bl-lg rounded-br-lg text-extra-small" href="">Contact Sales</a>
+                </div>
               </div>
             )}
           </div>
@@ -140,11 +164,13 @@ const Header = () => {
           <div className="relative" ref={productsRef}>
             <button
               onClick={() => toggleDropdown("products")}
-              className="flex items-center gap-1 text-white hover:text-gray-300 transition">
+              className="flex items-center gap-1 text-white hover:text-gray-300 transition"
+            >
               Units
               <ChevronDown
                 size={18}
-                className={`transition-transform ${openDropdown === "products" ? "rotate-180" : ""}`} />
+                className={`transition-transform ${openDropdown === "products" ? "rotate-180" : ""}`}
+              />
             </button>
 
             {openDropdown === "products" && (
@@ -152,31 +178,30 @@ const Header = () => {
                rounded-lg z-50 h-[524px] transform -translate-x-[50%] -translate-y-[-1%]
          after:content-[''] after:absolute after:top-0 after:left-[65%] after:-ml-[0px] after:-mt-[10px]
          after:w-0 after:h-0 after:z-[1]
-         after:border-b-[10px] after:border-b-white
-         after:border-l-[10px] after:border-l-transparent
-         after:border-r-[10px] after:border-r-transparent">
+         after:border-b-[10px] after;border-b-white after:border-l-[10px] after:border-l-transparent after:border-r-[10px] after:border-r-transparent">
                 {/* Banking */}
                 <div className="p-2 ">
-                  <div >
+                  <div>
                     <button
                       onClick={() =>
                         setOpenSubMenu(openSubMenu === "banking" ? null : "banking")
                       }
-                      className="flex justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">
+                      className="flex justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                    >
                       Banking Tech
                       <ChevronDown size={16} className={`transition-transform ${openSubMenu === "banking" ? "rotate-270" : ""}`} />
                     </button>
                     {openSubMenu === "banking" && (
                       <div className="pl-6 py-6 flex flex-col gap-1 absolute left-full top-0 bg-white w-[520px] p-8 rounded-lg h-full shadow-[0px_1px_4px_0px_#ddd]">
                         <ul className="flex flex-wrap justify-between gap-5">
-                          <li className=" border border-[#ddd] p-4 rounded-lg flex-1">
+                          <li className="border border-[#ddd] p-4 rounded-lg flex-1">
                             <Link href="connectedbanking" className="text-gray-700 font-semibold hover:text-black">
                               <Image
                                 src={Icons.coneactedbanking}
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Connected Banking
                               <p className="text-extra-small pt-1">Unite your bank and financial <br /> accounts in one location</p>
@@ -189,20 +214,20 @@ const Header = () => {
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Expense Card
                               <p className="text-extra-small pt-1">Manage corporate <br /> expenses</p>
                             </Link>
                           </li>
                           <li className="border border-[#ddd] p-4 rounded-lg">
-                            <Link href="gift" className="text-gray-700  font-semibold hover:text-black">
+                            <Link href="gift" className="text-gray-700 font-semibold hover:text-black">
                               <Image
                                 src={Icons.giftcard}
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Gift Card
                               <p className="text-extra-small pt-1">Thoughtful Gift For Every Occasian</p>
@@ -215,22 +240,24 @@ const Header = () => {
 
                   {/* Payments */}
                   <div>
-                    <button onClick={() => setOpenSubMenu(openSubMenu === "payments" ? null : "payments")}
-                      className="flex justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded" >
+                    <button
+                      onClick={() => setOpenSubMenu(openSubMenu === "payments" ? null : "payments")}
+                      className="flex justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                    >
                       Payment Paths
                       <ChevronDown size={16} className={`transition-transform ${openSubMenu === "payments" ? "rotate-270" : ""}`} />
                     </button>
                     {openSubMenu === "payments" && (
-                      <div className=" py-4 flex flex-col gap-1 absolute left-full top-0 bg-white w-[530px] h-[524px] p-4 rounded-lg h-auto shadow-[0px_1px_4px_0px_#ddd]">
+                      <div className="py-4 flex flex-col gap-1 absolute left-full top-0 bg-white w-[530px] h-[524px] p-4 rounded-lg h-auto shadow-[0px_1px_4px_0px_#ddd]">
                         <ul className="flex flex-wrap justify-between gap-5">
-                          <li className="border border-[#ddd] p-4 rounded-lg">          
+                          <li className="border border-[#ddd] p-4 rounded-lg">
                             <Link href="singlepayouts" className="text-gray-700 font-semibold hover:text-black">
                               <Image
                                 src={Icons.singalepay}
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Single Payout
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
@@ -256,7 +283,7 @@ const Header = () => {
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Payout Link
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
@@ -269,14 +296,14 @@ const Header = () => {
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Utility Bill Payments
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
                             </Link>
                           </li>
                           <li className="border border-[#ddd] p-4 rounded-lg">
-                            <Link href="pos" className="text-gray-700  font-semibold hover:text-black">
+                            <Link href="pos" className="text-gray-700 font-semibold hover:text-black">
                               <Image
                                 src={Icons.poss}
                                 alt="support"
@@ -289,13 +316,13 @@ const Header = () => {
                             </Link>
                           </li>
                           <li className="border border-[#ddd] p-4 rounded-lg">
-                            <Link href="staticqr" className="text-gray-700  font-semibold hover:text-black">
+                            <Link href="staticqr" className="text-gray-700 font-semibold hover:text-black">
                               <Image
                                 src={Icons.staticqr}
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Static QR
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
@@ -308,8 +335,10 @@ const Header = () => {
 
                   {/* Insurance */}
                   <div>
-                    <button onClick={() => setOpenSubMenu(openSubMenu === "insurance" ? null : "insurance")}
-                      className="flex justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded" >
+                    <button
+                      onClick={() => setOpenSubMenu(openSubMenu === "insurance" ? null : "insurance")}
+                      className="flex justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                    >
                       Insurance Path
                       <ChevronDown size={16} className={`transition-transform ${openSubMenu === "insurance" ? "rotate-270" : ""}`} />
                     </button>
@@ -323,7 +352,7 @@ const Header = () => {
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               General Insurance
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
@@ -349,7 +378,7 @@ const Header = () => {
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Life Insurance
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
@@ -362,8 +391,10 @@ const Header = () => {
 
                   {/* Identity */}
                   <div>
-                    <button onClick={() => setOpenSubMenu(openSubMenu === "identity" ? null : "identity")}
-                      className="flex justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">
+                    <button
+                      onClick={() => setOpenSubMenu(openSubMenu === "identity" ? null : "identity")}
+                      className="flex justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                    >
                       Identity Verification
                       <ChevronDown size={16} className={`transition-transform ${openSubMenu === "identity" ? "rotate-270" : ""}`} />
                     </button>
@@ -377,7 +408,7 @@ const Header = () => {
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Individual Verification
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
@@ -390,7 +421,7 @@ const Header = () => {
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Business Verification
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
@@ -403,7 +434,7 @@ const Header = () => {
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Financial Verification
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
@@ -416,8 +447,10 @@ const Header = () => {
 
                   {/* Other Services */}
                   <div>
-                    <button onClick={() => setOpenSubMenu(openSubMenu === "others" ? null : "others")}
-                      className="flex justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded">
+                    <button
+                      onClick={() => setOpenSubMenu(openSubMenu === "others" ? null : "others")}
+                      className="flex justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded"
+                    >
                       Next Level Outcomes
                       <ChevronDown size={16} className={`transition-transform ${openSubMenu === "others" ? "rotate-270" : ""}`} />
                     </button>
@@ -431,7 +464,7 @@ const Header = () => {
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Become a Banking Agent
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
@@ -444,7 +477,7 @@ const Header = () => {
                                 alt="support"
                                 width={50}
                                 height={50}
-                                className="bg-[#fff] p-2.5  mb-4"
+                                className="bg-[#fff] p-2.5 mb-4"
                               />
                               Become a Insurance Agent
                               <p className="text-extra-small pt-1">All current accounts in one place</p>
@@ -456,8 +489,8 @@ const Header = () => {
                   </div>
                 </div>
                 <div className="flex flex-col w-full ">
-                  <Link href="" className="flex-1 bg-[#fc9d08]  p-2   text-extra-small">Contact Sales</Link>
-                  <Link href="" className="flex-1 bg-[#000] p-2  text-white rounded-bl-lg rounded-br-lg text-extra-small">Contact Sales</Link>
+                  <Link href="" className="flex-1 bg-[#fc9d08] p-2 text-extra-small">Contact Sales</Link>
+                  <Link href="" className="flex-1 bg-[#000] p-2 text-white rounded-bl-lg rounded-br-lg text-extra-small">Contact Sales</Link>
                 </div>
               </div>
             )}
@@ -467,33 +500,33 @@ const Header = () => {
           <div className="relative" ref={solutionsRef}>
             <button
               onClick={() => toggleDropdown("solutions")}
-              className="flex items-center gap-1 text-white hover:text-gray-300 transition"  >
+              className="flex items-center gap-1 text-white hover:text-gray-300 transition"
+            >
               Utilization
               <ChevronDown size={18} className={`transition-transform ${openDropdown === "solutions" ? "rotate-180" : ""}`} />
             </button>
 
             {openDropdown === "solutions" && (
-              <div className="absolute left-0 mt-4 w-[520px] bg-white flex flex-col justify-between shadow-lg
-               rounded-lg z-50  transform -translate-x-[50%] -translate-y-[-1%]
+              <div className="absolute left-0 mt-4 w-[520px] bg-white flex flex-col justify-between shadow-lg rounded-lg z-50 transform -translate-x-[50%] -translate-y-[-1%]
          after:content-[''] after:absolute after:top-0 after:left-[57%] after:-ml-[0px] after:-mt-[10px]
          after:w-0 after:h-0 after:z-[1]
          after:border-b-[10px] after:border-b-white
          after:border-l-[10px] after:border-l-transparent
          after:border-r-[10px] after:border-r-transparent">
-                <ul className="flex flex-wrap justify-between gap-5  p-6">
-                  <li className="border border-[#ddd] p-4 rounded-lg flex-1  whitespace-nowrap">
+                <ul className="flex flex-wrap justify-between gap-5 p-6">
+                  <li className="border border-[#ddd] p-4 rounded-lg flex-1 whitespace-nowrap">
                     <Link href="ecommerce" className="text-gray-700 font-semibold hover:text-black ">
                       <Image
                         src={Icons.ecommerce}
                         alt="support"
                         width={50}
                         height={50}
-                        className="bg-[#fff] p-2.5  mb-4"
+                        className="bg-[#fff] p-2.5 mb-4"
                       />
                       E-Commerce
                     </Link>
                   </li>
-                  <li className="border border-[#ddd] p-4 rounded-lg flex-1  ">
+                  <li className="border border-[#ddd] p-4 rounded-lg flex-1 ">
                     <Link href="logistic" className="text-gray-700 font-semibold hover:text-black">
                       <Image
                         src={Icons.logistics}
@@ -524,7 +557,7 @@ const Header = () => {
                         alt="support"
                         width={50}
                         height={50}
-                        className="bg-[#fff] p-2.5  mb-4"
+                        className="bg-[#fff] p-2.5 mb-4"
                       />
                       Healthcare
                     </Link>
@@ -536,7 +569,7 @@ const Header = () => {
                         alt="support"
                         width={50}
                         height={50}
-                        className="bg-[#fff] p-2.5  mb-4"
+                        className="bg-[#fff] p-2.5 mb-4"
                       />
                       Marketplace
                     </Link>
@@ -554,38 +587,36 @@ const Header = () => {
                     </Link>
                   </li>
                 </ul>
-                <div className="flex  w-full ">
-                  <Link href="" className="flex-1 bg-[#fc9d08]  p-2  rounded-bl-lg text-extra-small">Contact Sales</Link>
-                  <Link href="" className="flex-1 bg-[#000] p-2  text-white rounded-br-lg text-extra-small">Contact Sales</Link>
+                <div className="flex w-full ">
+                  <Link href="" className="flex-1 bg-[#fc9d08] p-2 rounded-bl-lg text-extra-small">Contact Sales</Link>
+                  <Link href="" className="flex-1 bg-[#000] p-2 text-white rounded-br-lg text-extra-small">Contact Sales</Link>
                 </div>
               </div>
             )}
           </div>
 
-
           {/* Developer’s Hub Dropdown */}
           <div className="relative" ref={developersRef}>
             <button
               onClick={() => toggleDropdown("developers")}
-              className="flex items-center gap-1 text-white hover:text-gray-300 transition" >
+              className="flex items-center gap-1 text-white hover:text-gray-300 transition"
+            >
               Code Forge
               <ChevronDown
                 size={18}
-                className={`transition-transform ${openDropdown === "developers" ? "rotate-180" : ""
-                  }`}
+                className={`transition-transform ${openDropdown === "developers" ? "rotate-180" : ""}`}
               />
             </button>
 
             {openDropdown === "developers" && (
-              <div className="absolute left-0 mt-4 w-60 bg-white flex flex-col justify-between shadow-lg
-               rounded-lg z-50 h-[450px] transform -translate-x-[60%] -translate-y-[-1%]
+              <div className="absolute left-0 mt-4 w-60 bg-white flex flex-col justify-between shadow-lg rounded-lg z-50 h-[450px] transform -translate-x-[60%] -translate-y-[-1%]
          after:content-[''] after:absolute after:top-0 after:left-[65%] after:-ml-[0px] after:-mt-[10px]
          after:w-0 after:h-0 after:z-[1]
          after:border-b-[10px] after:border-b-white
          after:border-l-[10px] after:border-l-transparent
          after:border-r-[10px] after:border-r-transparent">
                 {/* Documentation */}
-                <div className="p-2" >
+                <div className="p-2">
                   <div>
                     <button
                       onClick={() =>
@@ -596,8 +627,7 @@ const Header = () => {
                       Documentation & Guides
                       <ChevronDown
                         size={16}
-                        className={`transition-transform ${openSubMenu === "docs" ? "rotate-270" : ""
-                          }`}
+                        className={`transition-transform ${openSubMenu === "docs" ? "rotate-270" : ""}`}
                       />
                     </button>
                     {openSubMenu === "docs" && (
@@ -627,7 +657,7 @@ const Header = () => {
                               API Documentation
                             </Link>
                           </li>
-                          <li className="border border-[#ddd] p-4 rounded-lg  whitespace-nowrap">
+                          <li className="border border-[#ddd] p-4 rounded-lg whitespace-nowrap">
                             <Link href="https://dotmik-software.readme.io/reference/authentication" className="text-gray-700 font-semibold hover:text-black">
                               <Image
                                 src={Icons.notped}
@@ -655,12 +685,11 @@ const Header = () => {
                       Build with APIs
                       <ChevronDown
                         size={16}
-                        className={`transition-transform ${openSubMenu === "apis" ? "rotate-270" : ""
-                          }`}
+                        className={`transition-transform ${openSubMenu === "apis" ? "rotate-270" : ""}`}
                       />
                     </button>
                     {openSubMenu === "apis" && (
-                      <div className=" flex flex-col gap-1 absolute left-full top-0 bg-white w-[520px] p-4 rounded-lg h-full">
+                      <div className="flex flex-col gap-1 absolute left-full top-0 bg-white w-[520px] p-4 rounded-lg h-full">
                         <ul className="flex flex-wrap justify-between gap-5">
                           <li className="border border-[#ddd] p-4 rounded-lg flex-1 whitespace-nowrap">
                             <Link href="https://dotmik-software.readme.io/reference/authentication" className="text-gray-700 font-semibold hover:text-black">
@@ -710,7 +739,7 @@ const Header = () => {
                               Collect Money
                             </Link>
                           </li>
-                          <li className="border border-[#ddd] p-4 rounded-lg  ">
+                          <li className="border border-[#ddd] p-4 rounded-lg">
                             <Link href="https://dotmik-software.readme.io/reference/authentication" className="text-gray-700 font-semibold hover:text-black">
                               <Image
                                 src={Icons.notped}
@@ -728,8 +757,8 @@ const Header = () => {
                   </div>
                 </div>
                 <div className="flex flex-col w-full ">
-                  <Link href="" className="flex-1 bg-[#fc9d08]  p-2 text-extra-small">Contact Sales</Link>
-                  <Link href="" className="flex-1 bg-[#000] p-2  text-white  rounded-bl-lg rounded-br-lg text-extra-small">Contact Sales</Link>
+                  <Link href="" className="flex-1 bg-[#fc9d08] p-2 text-extra-small">Contact Sales</Link>
+                  <Link href="" className="flex-1 bg-[#000] p-2 text-white rounded-bl-lg rounded-br-lg text-extra-small">Contact Sales</Link>
                 </div>
               </div>
             )}
@@ -738,7 +767,6 @@ const Header = () => {
           <Link href="/blogs" className="text-white hover:text-gray-300 transition">
             Diaries
           </Link>
-
         </nav>
 
         {/* Desktop Login */}
