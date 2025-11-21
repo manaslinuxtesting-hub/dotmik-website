@@ -19,7 +19,8 @@ const Acrossbusness = () => {
                             <Image
                                 src={Icons.notped}
                                 alt="support"
-                                
+                                  width={50}     
+                                    height={50} 
                                 className="bg-[#fff] p-2.5 rounded-full mb-8"
                             />
                             <h4 className="text-1x8 font-semibold text-black pb-2">

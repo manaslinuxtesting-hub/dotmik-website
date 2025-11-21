@@ -15,11 +15,11 @@ const Bankingagent = () => {
         <>
             <div className="h-banner !h-full relative  ">
                 <Image
-                    src={Images.bankagentbanner} alt="support" className="object-cover object-center rounded-none w-full h-full" />
-                <div className="absolute top-[130px] left-1/2 -translate-x-1/2">
+                    src={Images.bankagentbanner} alt="support" className="object-cover object-center rounded-none w-full md:h-full h-screen " />
+                <div className="absolute md:top-[130px] top-[50px] left-1/2 -translate-x-1/2 w-full px-6 md:px-0">
                     <h1 className="pt-10 pb-8 leading-[1.2] text-white  text-center lg:text-medium-48 !font-bold text-5xl" data-aos="fade-up">
                         Connecting India with
-                        <br /> <span className="text-[#fc9d08]"> The Largest Agent <br /> Banking Network</span>
+                        <br className="hidden md:flex" /> <span className="text-[#fc9d08]"> The Largest Agent <br className="hidden md:flex"  /> Banking Network</span>
                     </h1>
                     <p className="text-small font-normal px-5 text-center text-white" data-aos="fade-up">
                         If you are a talented and ambitious individual looking to make a <br /> mark in your career, we invite you to explore our career opportunities.

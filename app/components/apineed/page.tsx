@@ -10,7 +10,7 @@ const Apineed = () => {
     const [activeTab, setActiveTab] = useState("profile");
 
     return (
-        <div className="w-full lg:py-20  gap-20 mx-auto items-center md:max-w-[1350px] ">
+        <div className="w-full lg:py-20  gap-20 mx-auto items-center md:max-w-[1350px] px-8 md:px-0">
             <h2 className=" leading-[1.2] text-center lg:text-medium-2xl pb-2 !font-semibold text-5xl" data-aos="fade-up">
                 Experience the New Age <br />
                 <span className="text-[#fc9d08]"> API Banking  </span>Platform

@@ -7,12 +7,12 @@ import 'aos/dist/aos.css';
 const Futurereadyapi = () => {
     return (
         <div className="lg:px-20 px-10 lg:py-40 py-20">
-            <div className="flex w-full relative gap-14 h-full flex-wrap mx-auto md:max-w-[1350px]">
+            <div className="flex w-full relative md:gap-14 h-full flex-wrap mx-auto md:max-w-[1350px]">
                 <h2 className="pb-0 leading-[1.2] text-large-36 font-semibold text-black" data-aos="fade-up">
                     Future-Ready APIs for <br /> <span className="text-[#fc9d08]"> Scalable Growth</span>
                 </h2>
                 {/* API Block 1 */}
-                <div className="flex flex-wrap justify-between items-center gap-20 pt-10 sticky top-20 bg-white z-10" >
+                <div className="flex flex-wrap justify-between items-center gap-20 md:pt-10 pt-3 sticky top-20 bg-white z-10" >
                     <div className="lg:flex-1 flex flex-col">
                         <h2 className="pb-0 leading-none text-large-30 font-normal text-black pb-5">
                             Aadhaar Verification

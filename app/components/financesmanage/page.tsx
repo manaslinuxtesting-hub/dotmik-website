@@ -101,7 +101,7 @@ const Financesmanage = () => {
                     </p>
 
                     <div className="flex flex-wrap gap-5  py-16 lg:pb-16 pb-0">
-                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start flex-1">
+                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start md:flex-1">
                             <div className="bg-white p-2 pb-0 rounded-tl-[20px] rounded-tr-[20px]">
                                 <Image
                                     src={Images.m4}
@@ -121,7 +121,7 @@ const Financesmanage = () => {
                                 <p className="text-small font-normal text-white pt-2">Support for all major payment methods - IMPS, NEFT, RTGS, and UPI.</p>
                             </div>
                         </div>
-                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start flex-1">
+                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start md:flex-1 ">
                             <div className="bg-white p-2 pb-0 rounded-tl-[20px] rounded-tr-[20px]">
                               
                                  <Image
@@ -172,7 +172,7 @@ const Financesmanage = () => {
                     </p>
 
                     <div className="flex flex-wrap gap-5  py-16 lg:pb-16 pb-0">
-                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start flex-1">
+                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start md:flex-1">
                             <div className="bg-white p-2 pb-0 rounded-tl-[20px] rounded-tr-[20px]">
                                <Image
                                     src={Images.m7}
@@ -192,7 +192,7 @@ const Financesmanage = () => {
                                 <p className="text-small font-normal text-white pt-2">UPI, Credit & Debit Cards, Net Banking, and Wallets.</p>
                             </div>
                         </div>
-                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start flex-1">
+                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start md:flex-1">
                             <div className="bg-white p-2 pb-0 rounded-tl-[20px] rounded-tr-[20px]">
                              
                                 <Image
@@ -307,7 +307,7 @@ const Financesmanage = () => {
                     </p>
 
                     <div className="flex flex-wrap gap-5  py-16 lg:pb-16 pb-0">
-                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start flex-1">
+                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start md:flex-1">
                             <div className="bg-white p-2 pb-0 rounded-tl-[20px] rounded-tr-[20px]">
                                <Image
                                     src={Images.m13}
@@ -326,7 +326,7 @@ const Financesmanage = () => {
                                 <p className="text-small font-normal text-white pt-2">Stay on top of your finances by monitoring income and expenses in real-time.</p>
                             </div>
                         </div>
-                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start flex-1">
+                        <div className="flex flex-col  border border-[#606060] rounded-[20px] text-start md:flex-1">
                             <div className="bg-white p-2 pb-0 rounded-tl-[20px] rounded-tr-[20px]">
                                
                                  <Image

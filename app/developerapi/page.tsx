@@ -11,8 +11,8 @@ import 'aos/dist/aos.css';
 const Developerapi = () => {
     return (
         <>
-            <div className="h-banner lg:py-40 py-20 lg:px-20 px-10 blog-banner ">
-                <h1 className="pt-10 pb-8 leading-[1.2] text-white text-center lg:text-medium-54 !font-bold text-5xl" data-aos="fade-up">
+            <div className="h-banner lg:py-40 py-20 lg:px-20 px-10 blog-banner   ">
+                <h1 className="pt-10 pb-8  leading-[1.2] text-white text-center lg:text-medium-54 !font-bold text-5xl" data-aos="fade-up">
                     Experience the New Age <br />
                     <span className="text-[#fc9d08]"> API Banking  </span>Platform
                 </h1>

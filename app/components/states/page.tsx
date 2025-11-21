@@ -212,10 +212,10 @@ const States = () => {
       </h1>
 
       <div className="w-full h-full mx-auto md:w-[1350px] mt-8 pb-30">
-        <div className="flex flex-wrap px-8 md:px-0">
+        <div className="flex flex-wrap px-8 lg:px-0 md:px-8">
           {/* --- Customer Support --- */}
           <div
-            className="border border-white rounded-lg px-8 py-8 flex-1 flex flex-col justify-between shadow-[0px_1px_4px_0px_#fff] card-hover"
+            className="border border-white rounded-lg px-8 py-8 lg:flex-1 flex flex-col justify-between shadow-[0px_1px_4px_0px_#fff] card-hover"
             data-aos="fade-up"
           >
             <div className="flex flex-col">
@@ -243,7 +243,7 @@ const States = () => {
 
           {/* --- Sales --- */}
           <div
-            className="border border-white rounded-lg px-8 py-8 flex-1 flex flex-col justify-between shadow-[0px_1px_4px_0px_#fff] card-hover"
+            className="border border-white rounded-lg px-8 py-8 lg:flex-1 flex flex-col justify-between shadow-[0px_1px_4px_0px_#fff] card-hover"
             data-aos="fade-up"
           >
             <div className="flex flex-col">
@@ -256,7 +256,7 @@ const States = () => {
               />
               <h4 className="text-white text-large-24 font-bold mb-2">Sales</h4>
               <p className="text-white text-small font-normal">
-                Our sales experts are here to discuss how our solutions can meet your business needs and address any concerns.
+                Our sales experts are here to discuss how our solutions can <br /> meet your business needs and address any concerns.
               </p>
             </div>
             <Link
@@ -269,7 +269,7 @@ const States = () => {
 
           {/* --- Partnership --- */}
           <div
-            className="border border-white rounded-lg px-8 py-8 flex-1 flex flex-col justify-between shadow-[0px_1px_4px_0px_#fff] card-hover"
+            className="border border-white rounded-lg px-8 py-8 lg:flex-1 flex flex-col justify-between shadow-[0px_1px_4px_0px_#fff] card-hover"
             data-aos="fade-up"
           >
             <div className="flex flex-col">
@@ -298,10 +298,10 @@ const States = () => {
 
         {/* --- Report Fraud --- */}
         <div
-          className="border border-white rounded-t-none rounded-lg px-8 py-8 flex flex-row items-center justify-between shadow-[0px_1px_4px_0px_#fff] card-hover"
+          className="border border-white rounded-t-none rounded-lg mx-8 md:mx-0 px-8 py-8 md:flex md:flex-row  lg:flex lg:flex-row flex flex-col  items-center justify-between shadow-[0px_1px_4px_0px_#fff] card-hover"
           data-aos="fade-up"
         >
-          <div className="flex flex-row gap-5 items-center">
+          <div className="lg:flex lg:flex-row gap-5 items-center">
             <Image
               src={Icons.partnership}
               alt="report"
@@ -318,7 +318,7 @@ const States = () => {
           </div>
           <Link
             href="/"
-            className="flex items-center gap-2 banner-button w-fit border border-white"
+            className="!flex items-center gap-2 md:mr-0 mr-auto  md:mt-0 mt-8 banner-button w-fit border border-white"
           >
             Report Here
           </Link>
