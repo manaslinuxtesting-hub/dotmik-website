@@ -123,10 +123,10 @@ body {
 }
 
 .other-btn {
-   border-radius: 10px;
+  border-radius: 10px;
   padding: 10px 40px;
   background: #000;
-    font-weight: 600;
+  font-weight: 600;
   transition: all 0.5s ease-in-out;
 
 }
@@ -400,12 +400,32 @@ body {
   }
 
   .scrolling-words-box {
-    height: 4rem;
+    height: 4rem !important;
+    font-size: 24px;
   }
 
   .scrolling-words-box li {
-    height: 4rem;
+    height: 4rem !important;
   }
+
+  .h-banner {
+    padding-block-start: 120px;
+  }
+
+}
+
+@media only screen and (max-width: 991px) {
+
+
+  .scrolling-words-box {
+    height: 6rem !important;
+    font-size: 44px;
+  }
+
+  .scrolling-words-box li {
+    height: 6rem !important;
+  }
+
 
 }
 

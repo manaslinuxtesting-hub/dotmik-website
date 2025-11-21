@@ -8,7 +8,7 @@ import 'aos/dist/aos.css';
 const Billcategories = () => {
     return (
         <>
-            <div className="flex relative lg:py-40 py-20 w-full h-full mx-auto lg:gap-24 items-center justify-between px-10 2xl:container">
+            <div className="flex flex-wrap gap-5 relative lg:py-40 py-20 w-full h-full mx-auto lg:gap-24 items-center justify-between px-10 2xl:container">
                 <div className="lg:flex-1">
                     <h2 className=" pb-8 leading-[1.2] text-medium-2xl !font-bold" data-aos="fade-up">Pay with 20,000+ Billers <br /> Across 20+ Categories</h2>
                     <p className="text-small font-normal " data-aos="fade-up">Automate and centralise all recurring expenses — from utilities to healthcare — into one unified view for seamless bill management.</p>

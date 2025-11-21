@@ -27,7 +27,7 @@ const Payoutstructure = () => {
                             </Link>
                         </div>
                     </div>
-                    <div className="relative" data-aos="fade-up">
+                    <div className="relative md:w-auto w-full mt-20 md-mt-0" data-aos="fade-up">
                         <Image
                             src={Images.banking} alt="support" quality={100}
                             className="w-full  rounded-lg" />
